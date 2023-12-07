@@ -1,0 +1,172 @@
+
+<div class="filterNav"
+
+    <p class="subtitle">Categorias</p>
+
+    <div class="inputContainer">
+        <input type="radio" name="Corporal" id="corporal"><p class="text">Corporal</p>
+    </div>
+    <div class="inputContainer">
+        <input type="radio" name="Facial" id="facial"><p class="text">Facial</p>
+    </div>
+    
+    <div>
+        <a href="http://localhost:8080/products?limit={{limit}}&page={{page}}&sort=asc"><button class="btn">Mayor precio</button></a>
+        <a href="http://localhost:8080/products?limit={{limit}}&page={{page}}&sort=desc"><button class="btn">Menor precio</button></a>
+
+        <a href="http://localhost:8080/products"><button id="clearFilters" class="btn">Limpiar filtros</button></a>
+    </div>
+
+</div>
+
+<div class="productCard">
+    {{#each docs}}
+        <div class="card">
+            <div class="imgContainer">
+                <img src="" alt="{{this.title}}">
+            </div>
+            <h4 class="title">{{this.title}}</h4>
+            <p class="text">{{this.category}}</p>
+            <p class="text">Precio: {{this.price}}</p>
+            <a href="http://localhost:8080/product/{{this._id}}"><button class="btn">Ver más</button></a>
+            <button onclick="addToCart(`{{this._id}}`)" id="btnAddToCart" class="btn">Agregar al carrito</button>
+        </div>
+    {{/each}}
+</div> 
+
+<div class="pageNav">
+    <div class="box">
+        <p class="text">Página {{page}} de {{ totalPages }}</p> 
+    </div>
+
+    <div class="btnContainer">
+        {{#if hasPrevPage}}
+
+            <a href="http://localhost:8080/products?limit={{limit}}&page={{prevPage}}"><button class="btn">Previus page</button></a>
+
+        {{/if}}
+
+        {{#if hasNextPage}}
+
+            <a href="http://localhost:8080/products?limit={{limit}}&page={{nextPage}}"><button class="btn">Next page</button></a>
+
+        {{/if}}
+    </div>
+</div>  
+
+{{!-- SCRIPTS --}}
+
+{{!-- <script src="/productsPagination.js"></script> --}}
+
+<script>
+    const corporalCategory = document.getElementById("corporal");
+corporalCategory.addEventListener("click", () => {
+    window.location.href = "http://localhost:8080/products?limit={{limit}}&page={{page}}&category=Corporal";
+})
+
+const facialCategory = document.getElementById("facial");
+facialCategory.addEventListener("click", () => {
+    window.location.href = "http://localhost:8080/products?limit={{limit}}&page={{page}}&category=Facial";
+}) 
+
+const cart = '655c103fb79dbe3e7084fdd3';
+async function addToCart (id){
+    const res = await fetch(`/api/carts/${cart}/product/${id}`, {
+            method: 'POST',
+        })
+        const result = await res.json()
+        if (result.status === 'error') throw new Error(result.error)
+
+        console.log('Producto agregado')
+}
+</script>
+
+
+{{!-- ESTILOS --}}
+
+<style>
+    .filterNav {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.text {
+    margin-left: 5px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.btn {
+    background-color: #e44d26;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #333;
+}
+
+/* Estilos para las tarjetas de productos */
+.productCard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    padding: 10px;
+    background-color: #e44c263f;
+    border-radius: 1rem;
+}
+
+.imgContainer img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 10px;
+}
+
+.pageNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.box {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btnContainer a {
+    text-decoration: none;
+}
+</style>
+

@@ -1,0 +1,16 @@
+<h1>Inicia sesion</h1>
+<a action="/api/session/logout" method="get">Cerrar sesion</a>
+<div class="login-container">
+    <form action="/api/session/login" method="post">
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Inicia sesion</button>
+
+    </form>
+    <p>Si no tenes una cuenta <a href="/register">registrate</a></p>
+</div>

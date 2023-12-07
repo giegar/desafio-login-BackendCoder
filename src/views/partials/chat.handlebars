@@ -1,0 +1,68 @@
+<h3 class="title"> Live Chat </h3>
+
+<div class="inputBox">
+    <input type="text" id="input" class="input"><button id="send" class="button">Send</button>
+    <p class="text">Or press Enter</p>
+</div>
+
+<div id="chatbox" class="msg-box">
+
+</div>
+
+{{!-- SCRIPTS --}}
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/chat.js"></script>
+
+{{!-- ESTILOS --}}
+
+<style>
+.title {
+    font-size: 1.5rem;
+    color: #e44d26; 
+    margin-bottom: 20px;
+}
+
+
+.inputBox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e44d26; 
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.button {
+    background-color: #e44d26;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+.text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Estilos para el área del chat */
+.msg-box {
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #e44d26; /* Color principal del ecommerce */
+    border-radius: 5px;
+}
+</style>
