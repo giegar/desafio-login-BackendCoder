@@ -5,13 +5,6 @@ const viewsRouter = express.Router();
 
 // -------- Vistas de login y register 
 
-function sessionFree(req, res, next) {
-    // si la sesion existe, redirige
-    if(req.session?.user) return res.redirect("/products")
-    // si no existe ejecuta la vista
-    return next();
-}
-
 function sessionRequired(req, res, next) {
     // si existe la sesion, ejecuta la vista
     if(req.session?.user) return next();
@@ -19,20 +12,20 @@ function sessionRequired(req, res, next) {
     res.redirect('/login')
 }
 
-viewsRouter.get("/login", sessionFree, (req, res) => {
+viewsRouter.get("/login", (req, res) => {
     res.render("partials/login", {
         title: "Inicia sesion"
     })
 })
 
-viewsRouter.get("/register", sessionFree, (req, res) => {
+viewsRouter.get("/register", (req, res) => {
     res.render("partials/register", {
         title: "Registrate"
     })
 })
 
 // -------- Productos con paginacion
-viewsRouter.get("/products", sessionFree, async (req, res) => {
+viewsRouter.get("/products", async (req, res) => {
 
     const limit = parseInt(req.query?.limit ?? 10);
     const page = parseInt(req.query?.page ?? 1);
@@ -40,6 +33,7 @@ viewsRouter.get("/products", sessionFree, async (req, res) => {
     const sort = req.query.sort ?? '' ;
     const stock = parseInt(req.query.stock) ?? '' ;
 
+    const user = req.session.user
 
     const filter = {
         ...(category && { category }),
@@ -54,13 +48,13 @@ viewsRouter.get("/products", sessionFree, async (req, res) => {
         sort: sortValues,
         lean: true
     } 
-
+    console.log(user)
     const pageResults = await ProductModel.paginate(filter, options)
     res.render("partials/products", pageResults)
 })
 
 // -------- Home products
-viewsRouter.get("/", sessionFree, async (req, res) => {
+viewsRouter.get("/", async (req, res) => {
 
 const products = await ProductModel.find().lean().exec()
     res.render("home", {

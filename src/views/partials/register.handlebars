@@ -1,7 +1,7 @@
 <h1>Crea tu cuenta</h1>
 
 <div class="register-container">
-    <form action="/api/session/register" method="post">
+    <form action="/sessions/register" method="post">
         
         <label for="name">Nombre:</label>
         <input type="text" id="name" name="name" required>
@@ -24,5 +24,22 @@
         <button type="submit">Registrate</button>
 
     </form>
+    <div>
+        <p><a href="/github">O registrate con GitHub</a></p>
+    </div>
     <p>Si ya tenes una cuenta <a href="/login">inicia sesion</a></p>
+</div>
+
+<div class="footer">
+
+    <a href="/" class="link">Inicio</a>
+    <a href="/products" class="link">Productos</a>
+    <a href="/chat" class="link">Chat</a>
+    {{#if user}}
+            <a href="api/session/logout" class="link">Cerrar sesion</a>
+    {{else}}
+            <a href="/login" class="link">Iniciar sesion</a>
+            <a href="/register" class="link">Registrarse</a>
+    {{/if}}
+
 </div>

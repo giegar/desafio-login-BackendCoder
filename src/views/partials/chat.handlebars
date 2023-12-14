@@ -9,6 +9,20 @@
 
 </div>
 
+<div class="footer">
+
+    <a href="/" class="link">Inicio</a>
+    <a href="/products" class="link">Productos</a>
+    <a href="/chat" class="link">Chat</a>
+    {{#if user}}
+            <a href="api/session/logout" class="link">Cerrar sesion</a>
+    {{else}}
+            <a href="/login" class="link">Iniciar sesion</a>
+            <a href="/register" class="link">Registrarse</a>
+    {{/if}}
+
+</div>
+
 {{!-- SCRIPTS --}}
 
 <script src="/socket.io/socket.io.js"></script>

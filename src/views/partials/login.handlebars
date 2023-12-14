@@ -1,8 +1,8 @@
 <h1>Inicia sesion</h1>
-<a action="/api/session/logout" method="get">Cerrar sesion</a>
+
 <div class="login-container">
-    <form action="/api/session/login" method="post">
-        
+
+    <form action="/sessions/login" method="post">  
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
 
@@ -10,7 +10,25 @@
         <input type="password" id="password" name="password" required>
 
         <button type="submit">Inicia sesion</button>
-
     </form>
+    <div>
+        <p><a href="sessions/github">O entra con GitHub</a></p>
+    </div>
+
     <p>Si no tenes una cuenta <a href="/register">registrate</a></p>
+
+</div>
+
+<div class="footer">
+
+    <a href="/" class="link">Inicio</a>
+    <a href="/products" class="link">Productos</a>
+    <a href="/chat" class="link">Chat</a>
+    {{#if user}}
+            <a href="api/session/logout" class="link">Cerrar sesion</a>
+    {{else}}
+            <a href="/login" class="link">Iniciar sesion</a>
+            <a href="/register" class="link">Registrarse</a>
+    {{/if}}
+
 </div>

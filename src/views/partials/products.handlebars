@@ -1,3 +1,22 @@
+<nav class="navbar">
+
+    <div class="user-box">
+        {{}}
+        {{#if user}}
+            <h1>Hola {{user.rol}} {{user.name}} {{user.lastname}}!</h1>  
+        {{/if}}
+
+        <a class="link-cart" href="/cart">Carrito</a>
+         <a href="/sessions/logout" class="link">Logout</a>
+
+        {{#if user}}
+            <a href="/sessions/logout" class="link">Logout</a>
+        {{else}}
+            <a href="/login" class="link">Login</a>
+        {{/if}}
+    </div>
+
+</nav>
 
 <div class="filterNav"
 
@@ -52,7 +71,20 @@
 
         {{/if}}
     </div>
-</div>  
+</div> 
+<div class="footer">
+
+    <a href="/" class="link">Inicio</a>
+    <a href="/products" class="link">Productos</a>
+    <a href="/chat" class="link">Chat</a>
+    {{#if user}}
+            <a href="api/session/logout" class="link">Cerrar sesion</a>
+    {{else}}
+            <a href="/login" class="link">Iniciar sesion</a>
+            <a href="/register" class="link">Registrarse</a>
+    {{/if}}
+
+</div>
 
 {{!-- SCRIPTS --}}
 
